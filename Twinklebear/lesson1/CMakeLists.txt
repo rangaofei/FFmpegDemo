@@ -1,2 +1,2 @@
-add_executable(start src/start.cpp)
-target_link_libraries(start SDL2)
+add_executable(lesson1 src/start.cpp)
+target_link_libraries(lesson1 SDL2)

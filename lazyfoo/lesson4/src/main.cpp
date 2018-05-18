@@ -6,12 +6,22 @@
 #include <stdio.h>
 #include "res_path.h"
 
+enum KeyPressSurfaces {
+    KEY_PRESS_SURFACE_DEFAULT,
+    KEY_PRESS_SURFACE_UP,
+    KEY_PRESS_SURFACE_DOWN,
+    KEY_PRESS_SURFACE_LEFT,
+    KEY_PRESS_SURFACE_RIGHT,
+    KEY_PRESS_SURFACE_TOTAL
+};
+
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
 SDL_Window *window = NULL;
 SDL_Surface *surface = NULL;
 SDL_Surface *hello = NULL;
+SDL_Surface *keyPressSurfaces[KEY_PRESS_SURFACE_TOTAL];
 
 bool init();
 

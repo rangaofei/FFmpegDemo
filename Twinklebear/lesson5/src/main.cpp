@@ -21,6 +21,7 @@ SDL_Texture *loadTexture(const std::string &file, SDL_Renderer *ren) {
     if (texture == nullptr) {
         logSDLError(std::cout, "LoadTexture");
     }
+    return texture;
 }
 
 void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, SDL_Rect dst, SDL_Rect *clip = nullptr) {

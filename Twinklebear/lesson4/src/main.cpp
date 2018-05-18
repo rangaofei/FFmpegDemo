@@ -21,6 +21,7 @@ SDL_Texture *loadTexture(const std::string &file, SDL_Renderer *ren) {
     if (texture == nullptr) {
         logSDLError(std::cout, "LoadTexture");
     }
+    return texture;
 }
 
 void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y, int w, int h) {
@@ -42,7 +43,8 @@ int main(int argc, char **argv) {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         logSDLError(std::cout, "SDL_init");
     }
-    SDL_Window *window = SDL_CreateWindow("Lesson3", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    SDL_Window *window = SDL_CreateWindow("Lesson4", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH,
+                                          SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     if (window == nullptr) {
         logSDLError(std::cout, "CreateWindow");
         SDL_Quit();
