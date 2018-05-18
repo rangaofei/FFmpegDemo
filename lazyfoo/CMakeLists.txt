@@ -1,0 +1,2 @@
+add_subdirectory(lesson1)
+add_subdirectory(lesson2)
