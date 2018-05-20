@@ -1,9 +1,9 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.9)
 project(FFmpegDemo)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(FFmpegDemo1 FFmpegDemo1.c)
+add_executable(FFmpegDemo1 FFmpegDemo1.c lazyfoo/lesson5/src/main.cpp)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
 

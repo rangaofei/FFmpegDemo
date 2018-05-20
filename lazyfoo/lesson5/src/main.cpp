@@ -1,4 +1,8 @@
 //
+// Created by saka on 18-5-20.
+//
+
+//
 // Created by saka on 18-5-18.
 //
 
@@ -50,11 +54,18 @@ bool init() {
 }
 
 SDL_Surface *loadSurface(std::string path) {
+    SDL_Surface *optimizedSurface = nullptr;
     SDL_Surface *loadedSurface = SDL_LoadBMP(path.c_str());
     if (loadedSurface == nullptr) {
         printf("Unable to load iamge %s! SDL Error:%s\n", path.c_str(), SDL_GetError());
+    } else {
+        optimizedSurface = SDL_ConvertSurface(loadedSurface, surface->format, NULL);
+        if (optimizedSurface == nullptr) {
+            printf("Unable to optimize image %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
+        }
+        SDL_FreeSurface(loadedSurface);
     }
-    return loadedSurface;
+    return optimizedSurface;
 }
 
 bool loadMedia() {
@@ -65,7 +76,7 @@ bool loadMedia() {
         printf("Failed to load default image\n");
         success = false;
     }
-    
+
     resPath = getResourcePath("l4") + "up.bmp";
     keyPressSurfaces[KEY_PRESS_SURFACE_UP] = loadSurface(resPath);
     if (keyPressSurfaces[KEY_PRESS_SURFACE_UP] == nullptr) {
@@ -139,7 +150,12 @@ int main(int argc, char *args[]) {
                     }
                 }
             }
-            SDL_BlitSurface(currentSurface, NULL, surface, NULL);
+            SDL_Rect stretchRect;
+            stretchRect.x = 0;
+            stretchRect.y = 0;
+            stretchRect.w = SCREEN_HEIGHT;
+            stretchRect.h = SCREEN_HEIGHT;
+            SDL_BlitSurface(currentSurface, NULL, surface, &stretchRect);
             SDL_UpdateWindowSurface(window);
         }
 
