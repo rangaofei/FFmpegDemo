@@ -10,7 +10,8 @@
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 320;
 const int TILE_SIZE = 40;
-
+SDL_Event e;
+bool quit = false;
 
 void logSDLError(std::ostream &os, const std::string &msg) {
     os << msg << " error: " << SDL_GetError() << std::endl;
@@ -39,7 +40,25 @@ void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y) {
     renderTexture(tex, ren, x, y, w, h);
 }
 
+static int waitEvent(void *ptr) {
+    while (!quit) {
+        SDL_WaitEvent(&e);
+        if (e.type == SDL_QUIT) {
+            quit = true;
+        }
+        if (e.type == SDL_KEYDOWN) {
+            quit = true;
+        }
+        if (e.type == SDL_MOUSEBUTTONDOWN) {
+            quit = true;
+        }
+    }
+    return 1;
+}
+
 int main(int argc, char **argv) {
+    SDL_Thread *eventThread;
+
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         logSDLError(std::cout, "SDL_init");
     }
@@ -80,21 +99,10 @@ int main(int argc, char **argv) {
     int x = SCREEN_WIDTH / 2 - iW / 2;
     int y = SCREEN_HEIGHT / 2 - iH / 2;
 
-    SDL_Event e;
-    bool quit = false;
+    eventThread = SDL_CreateThread(waitEvent, "event_thread", nullptr);
 
     while (!quit) {
-        while (SDL_PollEvent(&e)) {
-            if (e.type == SDL_QUIT) {
-                quit = true;
-            }
-            if (e.type == SDL_KEYDOWN) {
-                quit = true;
-            }
-            if (e.type == SDL_MOUSEBUTTONDOWN) {
-                quit = true;
-            }
-        }
+
         SDL_RenderClear(renderer);
 
         renderTexture(image, renderer, x, y);
