@@ -1,2 +1,2 @@
-#define CLION @CLION@
-#define CLION @CLION@
+#cmakedefine RES_PATH_CLION @RES_PATH_CLION@
+#cmakedefine RES_PATH_BUILD @RES_PATH_BUILD@

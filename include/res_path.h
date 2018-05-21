@@ -28,7 +28,7 @@ std::string getResourcePath(const std::string &subDir = "") {
             std::cerr << "Error getting resource path:" << SDL_GetError() << std::endl;
             return "";
         }
-#ifdef CLION
+#ifdef RES_PATH_CLION
         size_t pos = baseRes.rfind("cmake-build-debug");
 #else
         size_t pos = baseRes.rfind("build");

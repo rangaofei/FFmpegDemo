@@ -3,7 +3,6 @@ project(FFmpegDemo)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(FFmpegDemo1 FFmpegDemo1.c lazyfoo/lesson5/src/main.cpp)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
 
@@ -15,12 +14,15 @@ else ()
     option(CLION "user clion run function" OFF)
 endif ()
 if (CLION)
-    set(CLION 1)
-    configure_file(
-            "${PROJECT_SOURCE_DIR}/Config.h.in"
-            "${PROJECT_BINARY_DIR}/Config.h"
-    )
+    set(RES_PATH_CLION 1)
+else ()
+    set(RES_PATH_BUILD 1)
 endif ()
+configure_file(
+        "${PROJECT_SOURCE_DIR}/Config.h.in"
+        "${PROJECT_BINARY_DIR}/Config.h"
+)
+
 include_directories("${PROJECT_BINARY_DIR}")
 include_directories(include)
 
@@ -28,34 +30,4 @@ add_subdirectory(Twinklebear)
 
 add_subdirectory(lazyfoo)
 
-target_link_libraries(FFmpegDemo1
-        avformat
-        z
-        m
-        pthread
-        avdevice
-        avfilter
-        avcodec
-        avutil
-        #        postproc
-        swresample
-        swscale
-        dl
-        )
-
-add_executable(FFmpegDemo2 FFmpegDemo2.c)
-target_link_libraries(FFmpegDemo2
-        avformat
-        z
-        m
-        pthread
-        avdevice
-        avfilter
-        avcodec
-        avutil
-        #        postproc
-        swresample
-        swscale
-        dl
-        SDL2
-        )
+add_subdirectory(ffmpeg)

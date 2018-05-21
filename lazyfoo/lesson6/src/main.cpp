@@ -8,6 +8,7 @@
 
 #include <SDL2/SDL.h>
 #include <stdio.h>
+#include <SDL2/SDL_image.h>
 #include "res_path.h"
 
 
@@ -40,7 +41,13 @@ bool init() {
             printf("Window could not be created!SDL_Error:%s\n", SDL_GetError());
             success = false;
         } else {
-            surface = SDL_GetWindowSurface(window);
+            int imgFlags = IMG_INIT_PNG;
+            if (!(IMG_Init(imgFlags) & imgFlags)) {
+                printf("SDL_image could not initialize! SDL_image Error:%s\n", IMG_GetError());
+                success = false;
+            } else {
+                surface = SDL_GetWindowSurface(window);
+            }
         }
     }
     return success;
@@ -48,7 +55,7 @@ bool init() {
 
 SDL_Surface *loadSurface(const std::string path) {
     SDL_Surface *optimizedSurface = nullptr;
-    SDL_Surface *loadedSurface = SDL_LoadBMP(path.c_str());
+    SDL_Surface *loadedSurface = IMG_Load(path.c_str());
     if (loadedSurface == nullptr) {
         printf("Unable to load iamge %s! SDL Error:%s\n", path.c_str(), SDL_GetError());
     } else {
@@ -63,7 +70,7 @@ SDL_Surface *loadSurface(const std::string path) {
 
 bool loadMedia() {
     bool success = true;
-    std::string resPath = getResourcePath("l5") + "stretch.bmp";
+    std::string resPath = getResourcePath("l6") + "loaded.png";
     stretchSurface = loadSurface(resPath);
     if (stretchSurface == NULL) {
         printf("Failed to load stretching image!\n");
@@ -77,6 +84,7 @@ void close() {
     stretchSurface = NULL;
     SDL_DestroyWindow(window);
     window = NULL;
+    IMG_Quit();
     SDL_Quit();
 }
 
