@@ -34,8 +34,15 @@ add_subdirectory(lesson17)
 
 add_subdirectory(lesson18)
 
-add_subdirectory(lesson19)
+add_subdirectory(lesson21)
 
+add_subdirectory(lesson22)
+
+add_subdirectory(lesson23)
+
+add_subdirectory(lesson24)
+
+add_subdirectory(lesson25)
 
 
 
