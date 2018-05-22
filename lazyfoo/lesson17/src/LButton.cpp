@@ -3,7 +3,7 @@
 //
 
 #include "LButton.h"
-#include "../../lesson13/src/LTexture.h"
+#include "LTexture.h"
 
 LButton::LButton() {
     position.x = 0;
