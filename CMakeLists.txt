@@ -31,3 +31,5 @@ add_subdirectory(Twinklebear)
 add_subdirectory(lazyfoo)
 
 add_subdirectory(ffmpeg)
+
+add_subdirectory(opengl)
