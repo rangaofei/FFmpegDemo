@@ -1,0 +1,2 @@
+add_library(opengl_helper OpenGLHelper.cpp)
+target_link_libraries(opengl_helper glfw glad)

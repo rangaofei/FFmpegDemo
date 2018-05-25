@@ -1,3 +1,5 @@
 add_subdirectory(glad)
+add_subdirectory(util)
 add_subdirectory(lesson1)
 add_subdirectory(lesson2)
+add_subdirectory(lesson3)
